@@ -20,19 +20,17 @@ console.log('New user connected');
 //emit-send
 //on-listen
 //message sockets
-socket.emit('newMessage',{
-  from:'Noam',
-  text:'hey how are you',
-  createdAt:1234
-});
 
-socket.on('createMessage',(newMessage)=>{
-  console.log('create Message',newMessage);
+
+socket.on('createMessage',(message)=>{
+  console.log('create Message',message);
+  io.emit('newMessage',{
+    from: message.from,
+    text:message.text,
+    createdAt:new Date().getTime()
+  })
 
 })
-
-
-
 
 socket.on('disconnect',()=>{
   console.log('disconneted from server');
