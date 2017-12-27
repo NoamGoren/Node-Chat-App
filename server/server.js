@@ -16,10 +16,25 @@ io.on('connection',(socket) => {
 console.log('New user connected');
 
 
+socket.emit('newMessage',{
+  from:'Admin',
+  text:'Welcome to chat app!',
+  createdAt:new Date().getTime()
+});
+
+socket.broadcast.emit('newMessage',{
+  from:'Admin',
+  text:'New user enter the channel',
+  createdAt:new Date().getTime()
+});
 
 //emit-send
 //on-listen
 //message sockets
+
+//challenfe
+//socket.emit from Admin text :Welcome to chat app
+//socket.broadcast.emit from admin text new user join
 
 
 socket.on('createMessage',(message)=>{
@@ -28,7 +43,13 @@ socket.on('createMessage',(message)=>{
     from: message.from,
     text:message.text,
     createdAt:new Date().getTime()
-  })
+  });
+
+  // socket.broadcast.emit("newMessage",{
+  //   from: message.from,
+  //   text:message.text,
+  //   createdAt:new Date().getTime()
+  // });
 
 })
 
