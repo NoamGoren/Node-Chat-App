@@ -1,5 +1,5 @@
 var expect =require('expect');
-var{generateMessage}=require('./message');
+var{generateMessage,generateLocationMessage}=require('./message');
 
 describe('generateMessage',()=>{
 it('should generate the correct message object',()=>{
@@ -14,4 +14,16 @@ it('should generate the correct message object',()=>{
     expect(message).toInclude({from,text});
     
 })
+});
+
+describe('generateLocationMessage',()=>{
+    it('should generate the correct location',()=>{
+        var lat=33.5363;
+        var long=35.339393199999996;
+        var from='noam';
+        var url=`https://www.google.com/maps?q=${lat},${long}`;
+        var message= generateLocationMessage(from,lat,long);
+        expect(message).toInclude({from,url});
+    })
+
 });
