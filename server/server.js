@@ -33,7 +33,7 @@ socket.broadcast.emit('newMessage',generateMessage('Admin','New user joind!'));
 socket.on('createMessage',(message,callback)=>{
   console.log('create Message',message);
   io.emit('newMessage',generateMessage(message.from,message.text));
-callback('This is from the server');
+callback();
 })
 
 socket.on('createLocationMessage',(coords)=>{
