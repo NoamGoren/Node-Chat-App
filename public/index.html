@@ -14,7 +14,18 @@
     </div>
 
     <div class="chat__main">
+            <script id="newMsg-template" type="text/template">
+                <div id="divCheckbox" style="visibility: visible; display:inline;">
+              <button style="display:block; /* change this from inline-block */
+                width:20%; /* setting the width */
+                margin:0 auto; /* this will center  it */" onclick="scrollToBottom(true)"
+            >{{countMsg}} new messages</button>
+             
+                </div>
+                 </script>
+            <div id="messages-preview"></div>
         <ol id="messages" class="chat__messages">  </ol>
+       
 
         <div class="chat__footer">
             <form id="message-form">
@@ -25,6 +36,7 @@
         </div>
         
     </div>
+   
 
    
 
@@ -55,6 +67,8 @@
           </li>
     
     </script>
+
+         
 
 
     <script src="/socket.io/socket.io.js"></script>

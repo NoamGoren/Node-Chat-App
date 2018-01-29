@@ -1,7 +1,17 @@
 var socket = io();
+let countMsg = 0
+function isElementOutViewport (el) {
+    if (typeof jQuery !== 'undefined' && el instanceof jQuery) el = el[0]
+    const rect = el.getBoundingClientRect()
+    console.log(rect.top)
+    console.log(window.innerHeight)
+    return rect.bottom < 0 || rect.right < 0 || rect.left > window.innerWidth || rect.top > window.innerHeight
+  }
 
-function scrollToBottom(){
+
+function scrollToBottom(fullscroll){
     //Selectors
+   
 
     var messages =jQuery('#messages');
     var newMessage =messages.children('li:last-child')
@@ -12,9 +22,26 @@ function scrollToBottom(){
     var newMessageHeight = newMessage.innerHeight();
     var lastMessageHeight= newMessage.prev().innerHeight();
 
+    if (clientHeight+scrollTop +newMessageHeight+lastMessageHeight <= scrollHeight) {
+        countMsg++;
+        const template = jQuery('#newMsg-template').html();
+        const html = Mustache.render(template, {
+        countMsg
+        });
+        jQuery('#messages-preview').html(html);
+        }
+
     if( clientHeight+scrollTop +newMessageHeight+lastMessageHeight >= scrollHeight){
        messages.scrollTop(scrollHeight);
     }
+    if (fullscroll) {
+        messages.scrollTop(scrollHeight)
+        countMsg = 0
+        // hide the button
+        const countbutton = jQuery('#divCheckbox')
+        console.log(countbutton)
+        countbutton.remove()
+      }
 }
 
 socket.on('connect',function() {
